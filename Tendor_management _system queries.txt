@@ -1,0 +1,170 @@
+mysql> use tendor_management_system;
+ERROR 1049 (42000): Unknown database 'tendor_management_system'
+mysql> create database tendor_management_system;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use tendor_management_system;
+Database changed
+mysql> CREATE TABLE Tender(
+    -> Tender_id varchar(20) PRIMARY KEY,
+    -> Tender_Name varchar(20)
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> desc Tender;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Tender_id   | varchar(20) | NO   | PRI | NULL    |       |
+| Tender_Name | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> CREATE TABLE Vendor(
+    -> Vender_id varchar(20) PRIMARY KEY,
+    -> Vender_Name varchar(20),
+    -> Tender_Allocated varchar(20),
+    -> Tender_id varchar(20),
+    -> Vender_password varchar(20)
+    -> FOREIGN KEY Vender(Tender_id) REFERENCES Tender(Tender_id)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY Vender(Tender_id) REFERENCES Tender(Tender_id)
+)' at line 7
+mysql> CREATE TABLE Vendor(
+    -> Vender_id varchar(20) PRIMARY KEY,
+    -> Vender_Name varchar(20),
+    -> Tender_Allocated varchar(20),
+    -> Tender_id varchar(20),
+    -> Vender_password varchar(20)
+    -> FOREIGN KEY(Tender_id) REFERENCES Tender(Tender_id)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY(Tender_id) REFERENCES Tender(Tender_id)
+)' at line 7
+mysql> CREATE TABLE Vendor(
+    -> Vender_id varchar(20) PRIMARY KEY,
+    -> Vender_Name varchar(20),
+    -> Tender_Allocated varchar(20),
+    -> Tender_id varchar(20),
+    -> Vender_password varchar(20)
+    -> FOREIGN KEY(Tender_id) REFERENCES Tender(Tender_id)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY(Tender_id) REFERENCES Tender(Tender_id)
+)' at line 7
+mysql> CREATE TABLE Vendor(
+    -> Vender_id varchar(20) PRIMARY KEY,
+    -> Vender_Name varchar(20),
+    -> Tender_Allocated varchar(20),
+    -> Tender_id varchar(20),
+    -> Vender_password varchar(20),
+    -> FOREIGN KEY(Tender_id) REFERENCES Tender(Tender_id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE Vendor(
+    -> Vender_id varchar(20) PRIMARY KEY,
+    -> Vender_Name varchar(20),
+    -> Tender_Allocated varchar(20),
+    -> Tender_id varchar(20),
+    -> Vender_password varchar(20),
+    -> FOREIGN KEY(Tender_id) REFERENCES Tender(Tender_id)
+    -> );
+ERROR 1050 (42S01): Table 'vendor' already exists
+mysql> CREATE TABLE BIDDER(
+    -> Bid_id int UNIQUE AUTO_INCREMENT,
+    -> Vender_id varchar(15) PRIMARY,
+    -> Tender_id varchar(15) PRIMARY,
+    -> Bid_amount INT,
+    -> Status varchar(10),
+    -> FOREIGN KEY(Tender_id) REFERENCES Tender(Tender_id),
+    -> FOREIGN KEY(Vender_id) REFERENCES Vendor(Vender_id)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+Tender_id varchar(15) PRIMARY,
+Bid_amount INT,
+Status varchar(10),
+FOREIGN KEY' at line 3
+mysql> CREATE TABLE BIDDER(
+    -> Bid_id int UNIQUE AUTO_INCREMENT,
+    -> Vender_id varchar(15),
+    -> Tender_id varchar(15),
+    -> Bid_amount INT,
+    -> Status varchar(10),
+    -> FOREIGN KEY(Tender_id) REFERENCES Tender(Tender_id),
+    -> FOREIGN KEY(Vender_id) REFERENCES Vendor(Vender_id)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> show tables;
++------------------------------------+
+| Tables_in_tendor_management_system |
++------------------------------------+
+| bidder                             |
+| tender                             |
+| vendor                             |
++------------------------------------+
+3 rows in set (0.02 sec)
+
+mysql> desc Bidder;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| Bid_id     | int         | NO   | PRI | NULL    | auto_increment |
+| Vender_id  | varchar(15) | YES  | MUL | NULL    |                |
+| Tender_id  | varchar(15) | YES  | MUL | NULL    |                |
+| Bid_amount | int         | YES  |     | NULL    |                |
+| Status     | varchar(10) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> desc Vendor;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| Vender_id        | varchar(20) | NO   | PRI | NULL    |       |
+| Vender_Name      | varchar(20) | YES  |     | NULL    |       |
+| Tender_Allocated | varchar(20) | YES  |     | NULL    |       |
+| Tender_id        | varchar(20) | YES  | MUL | NULL    |       |
+| Vender_password  | varchar(20) | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
